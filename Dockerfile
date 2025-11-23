@@ -3,7 +3,7 @@ WORKDIR /src
 COPY src/go.mod ./
 RUN go mod download
 COPY src/* ./
-RUN GOOS=linux GOARCH=amd64 go build -o demo
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o demo
 
 FROM scratch
 COPY --from=builder /src/demo /demo
